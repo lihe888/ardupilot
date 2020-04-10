@@ -193,6 +193,13 @@ void AP_Compass_QMC5883L::timer()
 
     Vector3f field = Vector3f{x * range_scale , y * range_scale, z * range_scale };
 
+    static int count1=0;
+                  		count1++;
+                  		if(count1%10==0)
+                  		{hal.uartE->printf("10HZÊä³ö´ÅÁ¦¼ÆQMC5883L,buffer.rx=,%d, buffer.ry=,%d, buffer.rz=,%d,field.x=,%5.4f, field.y=,%5.4f, field.z=,%5.4f\n",
+                  				buffer.rx, buffer.ry, buffer.rz,field.x, field.y, field.z);}
+
+
     // rotate to the desired orientation
     if (is_external(_instance)) {
         field.rotate(ROTATION_YAW_90);

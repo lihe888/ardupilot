@@ -343,11 +343,6 @@ void AP_Compass_LSM303D::_update()
 
     Vector3f raw_field = Vector3f(_mag_x, _mag_y, _mag_z) * _mag_range_scale;
 
-    static int count1=0;
-        		count1++;
-        		if(count1%10==0)
-        		{    hal.uartE->printf("10HZÊä³ö´ÅÁ¦¼ÆLSM303D,_mag_x=,%d, _mag_y=,%d, _mag_z=,%d,raw_field.x=,%5.4f, raw_field.y=,%5.4f, raw_field.z=,%5.4f\n",_mag_x, _mag_y, _mag_z,raw_field.x, raw_field.y, raw_field.z);}
-
     // rotate raw_field from sensor frame to body frame
     rotate_field(raw_field, _compass_instance);
 
