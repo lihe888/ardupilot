@@ -3,7 +3,7 @@
  *
  *       AHRS system using DCM matrices
  *
- *       Based on DCM code by Doug Weibel, Jordi Muñoz and Jose Julio. DIYDrones.com
+ *       Based on DCM code by Doug Weibel, Jordi Muï¿½oz and Jose Julio. DIYDrones.com
  *
  *       Adapted for the general ArduPilot AHRS interface by Andrew Tridgell
 
@@ -108,6 +108,13 @@ AP_AHRS_DCM::update(bool skip_ins_update)
 
     // Calculate pitch, roll, yaw for stabilization and navigation
     euler_angles();
+
+    static int count1=0;
+    count1++;
+    if(count1%400==0){
+    	const Vector3f &mag_field = _compass->get_field();
+    	hal.uartE->printf("1HZ_IST8310,mag_field.x=,%f, mag_field.y=,%f,mag_field.z=,%f,DCM,roll=,%5.4f, pitch=,%5.4f, yaw=,%5.4f,\n",mag_field.x, mag_field.y, mag_field.z,roll, pitch, yaw);}
+
 
     // update trig values including _cos_roll, cos_pitch
     update_trig();
@@ -326,7 +333,7 @@ AP_AHRS_DCM::renorm(Vector3f const &a, Vector3f &result)
  *  to approximations rather than identities. In effect, the axes in the two frames of reference no
  *  longer describe a rigid body. Fortunately, numerical error accumulates very slowly, so it is a
  *  simple matter to stay ahead of it.
- *  We call the process of enforcing the orthogonality conditions ÒrenormalizationÓ.
+ *  We call the process of enforcing the orthogonality conditions ï¿½renormalizationï¿½.
  */
 void
 AP_AHRS_DCM::normalize(void)

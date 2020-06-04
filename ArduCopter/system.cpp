@@ -56,6 +56,9 @@ void Copter::init_ardupilot()
     // initialise serial ports
     serial_manager.init();
 
+    hal.uartE->begin(115200);
+    hal.uartE->set_blocking_writes(false);
+
     // setup first port early to allow BoardConfig to report errors
     gcs().chan(0).setup_uart(serial_manager, AP_SerialManager::SerialProtocol_MAVLink, 0);
 
